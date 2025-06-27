@@ -1,0 +1,15 @@
+@use './index' as *;
+@import './components/activityChart';
+@import './components/header';
+@import './components/sidebar';
+@import './components/profilePage';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}

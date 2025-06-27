@@ -1,0 +1,35 @@
+.sidebar {
+  background-color: #000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  width: 80px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  &__icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    img {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 6px;
+      padding: 8px;
+    }
+  }
+
+  &__copyright {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.75rem;
+    color: #fff;
+  }
+}
