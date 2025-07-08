@@ -1,5 +1,5 @@
 import React from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import activityMock from '../../mocks/activityMock.json'
 
 export default function ActivityChart() {
@@ -26,6 +26,15 @@ export default function ActivityChart() {
             dataKey="calories"
           />
           <Tooltip content={<CustomTooltip />} />
+          <Legend
+            verticalAlign="top"
+            align="right"
+            iconType="circle"
+            height={36}
+            formatter={(value) =>
+              value === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'
+            }
+          />
           <Bar yAxisId="kg" dataKey="kilogram" fill="#282D30" radius={[10, 10, 0, 0]} />
           <Bar yAxisId="cal" dataKey="calories" fill="#E60000" radius={[10, 10, 0, 0]} />
         </BarChart>
