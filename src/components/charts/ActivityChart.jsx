@@ -1,5 +1,13 @@
 import React from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from 'recharts'
 import activityMock from '../../mocks/activityMock.json'
 
 export default function ActivityChart() {
@@ -7,10 +15,23 @@ export default function ActivityChart() {
 
   return (
     <div className="activity-chart">
-      <h2 className="chart-title">Activité quotidienne</h2>
+      <div className="chart-header">
+        <h2 className="chart-title">Activité quotidienne</h2>
+        <div className="chart-legend">
+          <div className="legend-item">
+            <span className="legend-dot kg"></span>
+            <span className="legend-text">Poids (kg)</span>
+          </div>
+          <div className="legend-item">
+            <span className="legend-dot cal"></span>
+            <span className="legend-text">Calories brûlées (kCal)</span>
+          </div>
+        </div>
+      </div>
+
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data} barGap={8} barSize={7}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} horizontal={true} />
           <XAxis dataKey="day" tickLine={false} />
           <YAxis
             yAxisId="kg"
@@ -26,15 +47,6 @@ export default function ActivityChart() {
             dataKey="calories"
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend
-            verticalAlign="top"
-            align="right"
-            iconType="circle"
-            height={36}
-            formatter={(value) =>
-              value === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'
-            }
-          />
           <Bar yAxisId="kg" dataKey="kilogram" fill="#282D30" radius={[10, 10, 0, 0]} />
           <Bar yAxisId="cal" dataKey="calories" fill="#E60000" radius={[10, 10, 0, 0]} />
         </BarChart>
@@ -48,8 +60,8 @@ function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip">
-        <p>{payload[0].value}kg</p>
-        <p>{payload[1].value}kCal</p>
+        <p className='tooltip_kilo'>{payload.find(p => p.dataKey === 'kilogram')?.value}kg</p>
+        <p>{payload.find(p => p.dataKey === 'calories')?.value}kCal</p>
       </div>
     )
   }

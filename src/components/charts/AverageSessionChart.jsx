@@ -22,7 +22,7 @@ export default function AverageSessionChart() {
   return (
     <div className="session-chart">
       <h2 className="session-title">Durée moyenne des sessions</h2>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={263}>
         <LineChart
           data={paddedData}
           margin={{ top: 60, right: 0, left: 0, bottom: 10 }}

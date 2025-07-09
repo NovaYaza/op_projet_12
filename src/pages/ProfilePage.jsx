@@ -14,7 +14,7 @@ export default function ProfilePage() {
     <main className="profile-page">
   <div className="main-container">
     <h1>Bonjour <span className="user-name">Thomas</span></h1>
-    <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+    <p className='text_accueil'>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
 
     <section className="charts-section">
       <div className='left_part'>

@@ -9,6 +9,12 @@
   height: 124px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
+    @media (max-width: 1300px) {
+      width: 188px;
+      height: 104px;
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+  }
+
   &__icon {
     width: 60px;
     height: 60px;
@@ -16,6 +22,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 1300px) {
+      width: 40px;
+      height: 40px;
+  }
 
     img {
       width: 20px;

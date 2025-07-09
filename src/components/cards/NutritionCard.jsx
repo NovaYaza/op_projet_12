@@ -8,7 +8,7 @@ export default function NutritionCard({ icon, value, unit, label, bgColor }) {
       </div>
       <div className="nutrition-card__info">
         <p className="nutrition-card__value">
-          {value}
+          {value.toLocaleString('en-US')}
           {unit}
         </p>
         <p className="nutrition-card__label">{label}</p>

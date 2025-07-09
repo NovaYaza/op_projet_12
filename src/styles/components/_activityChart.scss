@@ -2,17 +2,68 @@
   background-color: #FBFBFB;
   padding: 1.5rem;
   border-radius: 5px;
-  
-  .chart-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+
+    .chart-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #20253A;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.85rem;
+      color: #74798C;
+      margin-right: 35px;
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .legend-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .kg {
+        background-color: #282D30;
+      }
+
+      .cal {
+        background-color: #E60000;
+      }
+
+      .legend-text {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+    }
   }
 
   .custom-tooltip {
     background: #E60000;
     color: white;
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    padding: 1rem 0.8rem 1rem 0.8rem;
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: center;
+
+    p {
+      margin: 0;
+    }
+
+    .tooltip_kilo {
+      margin-bottom: 35px;
+    }
   }
 }
