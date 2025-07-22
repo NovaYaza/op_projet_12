@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ProfilePage from './pages/ProfilePage'
 import Header from './components/layout/Header'
@@ -10,7 +9,7 @@ function App() {
       <Header />
       <Sidebar />
       <Routes>
-        <Route path="/" element={<ProfilePage />} />
+        <Route path="/user/:id" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   )

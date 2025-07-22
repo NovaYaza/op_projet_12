@@ -1,17 +1,31 @@
-import React from 'react'
-import {
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer
-} from 'recharts'
-import mockData from '../../mocks/performanceMock.json'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
+import { useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
+import { getEndpoint } from '../../services/dataSource'
 
 export default function PerformanceRadarChart() {
-  const performance = mockData.data
-  const kindLabels = performance.kind
+  const { id } = useParams()
+  const { data, loading, error } = useFetch(getEndpoint('performance', id), id)
 
-  // Mapper le type de perf avec son label
+  if (loading) return <p>Chargement…</p>
+  if (error) return <p>Erreur : {error}</p>
+
+  const performance = data.data
+
+  // Formater les noms des données en Français
+  const kindLabels = {
+    cardio: 'Cardio',
+    energy: 'Énergie',
+    endurance: 'Endurance',
+    strength: 'Force',
+    speed: 'Vitesse',
+    intensity: 'Intensité'
+  }
+
+  // Formatter les données avec leurs labels textuels
   const formattedData = performance.data.map(item => ({
-    subject: kindLabels[item.kind],
-    value: item.value
+    value: item.value,
+    kind: kindLabels[performance.kind[item.kind]]
   }))
 
   return (
@@ -23,7 +37,7 @@ export default function PerformanceRadarChart() {
         >
           <PolarGrid radialLines={false} />
           <PolarAngleAxis
-            dataKey="subject"
+            dataKey="kind"
             stroke="#fff"
             tick={CustomPolarAngleAxisTick}
             tickLine={false}
@@ -45,7 +59,7 @@ function CustomPolarAngleAxisTick({ payload, x, y, textAnchor }) {
     <text
       x={x}
       y={y}
-      dy={4} // ← ajuste la hauteur
+      dy={4}
       fill="#FFFFFF"
       textAnchor={textAnchor}
       fontSize={12}

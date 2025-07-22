@@ -191,8 +191,8 @@ const USER_PERFORMANCE = [
         kind: {
             1: 'cardio',
             2: 'energy',
-            3: 'endurance',
-            4: 'strength',
+            3: 'strength',
+            4: 'endurance',
             5: 'speed',
             6: 'intensity'
         },
@@ -206,11 +206,11 @@ const USER_PERFORMANCE = [
                 kind: 2
             },
             {
-                value: 140,
+                value: 50,
                 kind: 3
             },
             {
-                value: 50,
+                value: 140,
                 kind: 4
             },
             {
@@ -228,8 +228,8 @@ const USER_PERFORMANCE = [
         kind: {
             1: 'cardio',
             2: 'energy',
-            3: 'endurance',
-            4: 'strength',
+            3: 'strength',
+            4: 'endurance',
             5: 'speed',
             6: 'intensity'
         },

@@ -1,16 +1,19 @@
-import React from 'react'
-import {
-  RadialBarChart,
-  RadialBar,
-  PolarAngleAxis,
-  ResponsiveContainer
-} from 'recharts'
-import mockData from '../../mocks/scoreMock.json'
+import { useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
+import { RadialBarChart, RadialBar, PolarAngleAxis, ResponsiveContainer } from 'recharts'
+import { getEndpoint } from '../../services/dataSource'
 
 export default function ScoreRadialChart() {
-  const score = mockData.data.todayScore
+  const { id } = useParams()
+  const { data, loading, error } = useFetch(getEndpoint('main', id), id)
 
-  const data = [
+  if (loading) return <p>Chargement…</p>
+  if (error) return <p>Erreur : {error}</p>
+
+  const user = data.data
+  const score = user.todayScore ?? user.score // certains users ont `score`, d'autres `todayScore`
+
+  const scoreData = [
     {
       name: 'score',
       value: score * 100, // pourcentage
@@ -30,7 +33,7 @@ export default function ScoreRadialChart() {
           barSize={10}
           startAngle={90}
           endAngle={450}
-          data={data}
+          data={scoreData}
         >
           <PolarAngleAxis
             type="number"

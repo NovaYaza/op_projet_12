@@ -1,13 +1,18 @@
-import React from 'react'
-import {
-  LineChart, Line, XAxis, Tooltip, ResponsiveContainer, Rectangle
-} from 'recharts'
-import mockData from '../../mocks/averageSessionsMock.json'
+import {LineChart, Line, XAxis, Tooltip, ResponsiveContainer, Rectangle } from 'recharts'
+import { useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
+import { getEndpoint } from '../../services/dataSource'
 
 const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
 export default function AverageSessionChart() {
-  const rawData = mockData.data
+  const { id } = useParams()
+  const { data, loading, error } = useFetch(getEndpoint('average', id), id)
+
+  if (loading) return <p>Chargement...</p>
+  if (error) return <p>Erreur : {error}</p>
+
+  const rawData = data.data.sessions
 
   // Ajout des points fantômes à gauche et à droite
   const paddedData = [

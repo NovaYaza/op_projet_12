@@ -1,12 +1,12 @@
 @use './index' as *;
-@import './components/activityChart';
-@import './components/header';
-@import './components/sidebar';
-@import './components/profilePage';
-@import './components/sessionChart';
-@import './components/radarChart';
-@import './components/scoreRadialChart';
-@import './components/nutritionCard';
+@use './components/activityChart';
+@use './components/header';
+@use './components/sidebar';
+@use './components/profilePage';
+@use './components/sessionChart';
+@use './components/radarChart';
+@use './components/scoreRadialChart';
+@use './components/nutritionCard';
 
 * {
   margin: 0;

@@ -1,17 +1,41 @@
-import React from 'react'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts'
-import activityMock from '../../mocks/activityMock.json'
+import { useParams } from 'react-router-dom'
+import useFetch from '../../services/useFetch'
+import { getEndpoint } from '../../services/dataSource'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 
 export default function ActivityChart() {
-  const data = activityMock.data
+  const { id } = useParams()
+  const { data, loading, error } = useFetch(getEndpoint('activity', id), id)
+
+  if (loading) return <p>Chargement…</p>
+  if (error) return <p>Erreur : {error}</p>
+  if (!data?.data) return <p>Aucune donnée</p>
+
+  const formattedSessions = data.data.sessions.map((session, index) => ({
+  ...session,
+  day: index + 1  // transforme la date en numéro de jour
+}))
+
+const kilos = formattedSessions.map(s => s.kilogram)
+const min = Math.min(...kilos)
+const max = Math.max(...kilos)
+
+const ticks = []
+for (let i = Math.floor(min - 1); i <= Math.ceil(max + 1); i++) {
+  ticks.push(i)
+}
+
+// Affichage des lignes horizontales pour les données sur l'axe Y
+const referenceLines = ticks.map((tick) => (
+    <ReferenceLine
+      key={`ref-${tick}`}
+      y={tick}
+      stroke="#000"
+      strokeDasharray="3 3"
+      strokeOpacity={0.2}
+      yAxisId="kg"
+    />
+  ))
 
   return (
     <div className="activity-chart">
@@ -30,8 +54,9 @@ export default function ActivityChart() {
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data} barGap={8} barSize={7}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} horizontal={true} />
+        <BarChart data={formattedSessions} barGap={8} barSize={7}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} horizontal={false} />
+          {referenceLines}
           <XAxis dataKey="day" tickLine={false} />
           <YAxis
             yAxisId="kg"
@@ -40,6 +65,7 @@ export default function ActivityChart() {
             axisLine={false}
             tickLine={false}
             domain={['dataMin - 1', 'dataMax + 1']}
+            ticks={ticks}
           />
           <YAxis
             yAxisId="cal"
