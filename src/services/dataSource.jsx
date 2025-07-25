@@ -1,4 +1,4 @@
-const useMock = true // change à true pour activer les mocks
+const useMock = false // change à true pour activer les mocks
 
 const API_BASE = 'http://localhost:3000/user' // URL du backend
 const MOCK_BASE = '/mock' //dossier public où sont les fichiers JSON mockés

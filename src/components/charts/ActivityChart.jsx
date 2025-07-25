@@ -5,17 +5,15 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 export default function ActivityChart() {
   const { id } = useParams()
-  const { data, loading, error } = useFetch(getEndpoint('activity', id), id)
+  const { data, loading, error } = useFetch(getEndpoint('activity', id), id, 'activity')
 
   if (loading) return <p>Chargement…</p>
   if (error) return <p>Erreur : {error}</p>
   if (!data?.data) return <p>Aucune donnée</p>
 
-  const formattedSessions = data.data.sessions.map((session, index) => ({
-  ...session,
-  day: index + 1  // transforme la date en numéro de jour
-}))
+const formattedSessions = data.data.sessions
 
+// On affiche des valeurs entières sur l'axe Y
 const kilos = formattedSessions.map(s => s.kilogram)
 const min = Math.min(...kilos)
 const max = Math.max(...kilos)

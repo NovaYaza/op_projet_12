@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { formatDataByType } from '../models/Format'
 
 // Hook personnalisé pour faire un fetch de données
-export default function useFetch(url, userId = null) {
+export default function useFetch(url, userId = null, type = '') {
   const [data, setData] = useState(null) // State pour stocker les données reçues
   const [loading, setLoading] = useState(true)  // State pour indiquer si la requête est en cours
   const [error, setError] = useState(null) // State pour capturer une éventuelle erreur
@@ -24,13 +25,13 @@ export default function useFetch(url, userId = null) {
             const filtered = json.find(item =>
               item.id === Number(userId) || item.userId === Number(userId)
             )
-            setData({ data: filtered }) // on le structure comme l'API
+            setData({ data: formatDataByType(type, filtered) })
           } else {
             setData({ data: json }) // Si pas d'ID précisé, on retourne tout le tableau
           }
         } else {
-          // Cas normal : données déjà formatées par le back (avec `data` à l'intérieur)
-          setData(json)
+          const formatted = formatDataByType(type, json.data || json)
+          setData({ data: formatted })
         }
       } catch (err) {
         setError(err.message)  // En cas d’erreur (réseau, JSON, etc.), on capture le message
@@ -40,7 +41,7 @@ export default function useFetch(url, userId = null) {
     }
 
     fetchData() // Exécute la fonction de récupération
-  }, [url, userId]) // Déclenche l'effet si l'URL ou l'ID change
+  }, [url, userId, type]) // Déclenche l'effet si l'URL ou l'ID change
 
   return { data, loading, error } // Retourne l’état actuel des données, du chargement et des erreurs
 }

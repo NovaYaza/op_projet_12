@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function NutritionCard({ icon, value, unit, label, bgColor }) {
   return (
     <div className="nutrition-card">

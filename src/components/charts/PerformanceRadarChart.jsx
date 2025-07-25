@@ -5,35 +5,19 @@ import { getEndpoint } from '../../services/dataSource'
 
 export default function PerformanceRadarChart() {
   const { id } = useParams()
-  const { data, loading, error } = useFetch(getEndpoint('performance', id), id)
+  const { data, loading, error } = useFetch(getEndpoint('performance', id), id, 'performance')
 
   if (loading) return <p>Chargement…</p>
   if (error) return <p>Erreur : {error}</p>
 
   const performance = data.data
 
-  // Formater les noms des données en Français
-  const kindLabels = {
-    cardio: 'Cardio',
-    energy: 'Énergie',
-    endurance: 'Endurance',
-    strength: 'Force',
-    speed: 'Vitesse',
-    intensity: 'Intensité'
-  }
-
-  // Formatter les données avec leurs labels textuels
-  const formattedData = performance.data.map(item => ({
-    value: item.value,
-    kind: kindLabels[performance.kind[item.kind]]
-  }))
-
   return (
     <div className="radar-chart">
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart
           outerRadius="65%"
-          data={formattedData}
+          data={performance.data}
         >
           <PolarGrid radialLines={false} />
           <PolarAngleAxis

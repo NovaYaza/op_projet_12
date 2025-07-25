@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom'
 import useFetch from '../../services/useFetch'
 import { getEndpoint } from '../../services/dataSource'
 
-const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
-
 export default function AverageSessionChart() {
   const { id } = useParams()
-  const { data, loading, error } = useFetch(getEndpoint('average', id), id)
+  const { data, loading, error } = useFetch(getEndpoint('average', id), id, 'average')
 
   if (loading) return <p>Chargement...</p>
   if (error) return <p>Erreur : {error}</p>
@@ -17,10 +15,7 @@ export default function AverageSessionChart() {
   // Ajout des points fantômes à gauche et à droite
   const paddedData = [
     { day: 0, sessionLength: rawData[0].sessionLength },
-    ...rawData.map((item, index) => ({
-      ...item,
-      dayLabel: days[index],
-    })),
+    ...rawData,
     { day: 8, sessionLength: rawData[rawData.length - 1].sessionLength }
   ]
 

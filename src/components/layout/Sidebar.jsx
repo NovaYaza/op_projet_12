@@ -1,4 +1,3 @@
-import React from 'react'
 import meditationIcon from '../../assets/icons/meditation_icon.png'
 import swimmingIcon from '../../assets/icons/swimming_icon.png'
 import cyclingIcon from '../../assets/icons/cycling_icon.png'

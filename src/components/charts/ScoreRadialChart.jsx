@@ -5,13 +5,13 @@ import { getEndpoint } from '../../services/dataSource'
 
 export default function ScoreRadialChart() {
   const { id } = useParams()
-  const { data, loading, error } = useFetch(getEndpoint('main', id), id)
+  const { data, loading, error } = useFetch(getEndpoint('main', id), id, 'main')
 
   if (loading) return <p>Chargement…</p>
   if (error) return <p>Erreur : {error}</p>
 
   const user = data.data
-  const score = user.todayScore ?? user.score // certains users ont `score`, d'autres `todayScore`
+  const score = user.score
 
   const scoreData = [
     {
